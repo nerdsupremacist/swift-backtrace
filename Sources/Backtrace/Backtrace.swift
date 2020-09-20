@@ -47,6 +47,7 @@ private let fullCallback: CBacktraceFullCallback? = {
     str.withCString { ptr in
         _ = withVaList([ptr]) { vaList in
             vfprintf(stderr, "%s", vaList)
+            fflush(stderr)
         }
     }
     return 0
@@ -57,6 +58,7 @@ private let errorCallback: CBacktraceErrorCallback? = {
     if let msg = msg {
         _ = withVaList([msg]) { vaList in
             vfprintf(stderr, "%s\n", vaList)
+            fflush(stderr)
         }
     }
 }
